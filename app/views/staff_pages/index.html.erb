@@ -1,2 +1,5 @@
-<h1>StaffPages#index</h1>
-<p>Find me in app/views/staff_pages/index.html.erb</p>
+<h1>受付スタッフ</h1>
+
+<%= link_to 'QRコード読み取り', staff_qrcode_reader_path, class: 'btn btn-primary' %>
+<%= link_to '履歴', staff_buy_detail_path, class: 'btn btn-primary' %>
+<%= link_to 'ログアウト', '#', class: 'btn btn-primary' %>

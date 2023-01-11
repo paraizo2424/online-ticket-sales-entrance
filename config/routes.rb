@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get '/buy_ticket', to: 'ticket_shops#buy_ticket'
   get '/thanks', to: 'ticket_shops#thanks'
 
-  get '/staff/singin', to: 'staff_pages#signin'
+  get '/staff/signin', to: 'staff_pages#signin'
   get '/staff', to: 'staff_pages#index'
   get '/staff/qrcode_reader', to: 'staff_pages#qrcode_reader'
   get '/staff/buy_detail', to: 'staff_pages#buy_detail'
