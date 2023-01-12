@@ -1,0 +1,2 @@
+class Eventer < ApplicationRecord
+end

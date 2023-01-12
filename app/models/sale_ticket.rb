@@ -1,0 +1,2 @@
+class SaleTicket < ApplicationRecord
+end
