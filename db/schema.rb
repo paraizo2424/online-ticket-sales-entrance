@@ -51,6 +51,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_12_125651) do
     t.integer "count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["sale_id", "ticket_id"], name: "index_sale_tickets_on_sale_id_and_ticket_id", unique: true
+    t.index ["sale_id"], name: "index_sale_tickets_on_sale_id"
+    t.index ["ticket_id"], name: "index_sale_tickets_on_ticket_id"
   end
 
   create_table "sales", force: :cascade do |t|

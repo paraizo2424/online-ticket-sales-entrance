@@ -1,5 +1,6 @@
-<h1>Qrcodes#reader</h1>
-<p>Find me in app/views/qrcodes/reader.html.erb</p>
+<h1>受付スタッフ</h1>
+
+<h2>QRコード読み取り</h2>
 
 <div id="loading">ブラウザのカメラの使用を許可してください。</div>
 <canvas id="canvas" hidden></canvas>
@@ -8,6 +9,8 @@
   <div id="outputMessage">No QR code detected.</div>
   <div hidden=""><b>Data:</b> <span id="outputData"></span></div>
 </div>
+
+<%= link_to 'チケット確認', staff_buy_detail_path, class: 'btn btn-primary' %>
 
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 <script>
