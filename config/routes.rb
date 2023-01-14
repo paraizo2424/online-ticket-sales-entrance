@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   get '/debug/select_actor', to:'debug_pages#select_actor'
+  get 'qrcodes/reader'
+  get 'qrcodes/generate'
 
   root 'ticket_shops#select_place'
   get '/select_date', to: 'ticket_shops#select_date'
