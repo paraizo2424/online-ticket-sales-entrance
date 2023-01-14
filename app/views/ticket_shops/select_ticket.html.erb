@@ -1,0 +1,40 @@
+<h1>チケット販売</h1>
+
+<h2>イベント場所</h2>
+<p>○○シアター</p>
+
+<h2>日時</h2>
+<p>1月○日</p>
+
+<h2>イベント</h2>
+<h3>〇〇展示会</h3>
+
+<h2>時間</h2>
+<img src="https://placehold.jp/150x150.png" class="img-fluid" alt="モックアップ">
+<p>14時00分 〜 15時00分</p>
+
+<h2>購入枚数</h2>
+
+<div>
+  <div>
+    <p>大人 1,000円</p>
+    <p>備考:</p>
+    <select name="count">
+      <option value="1" selected="selected">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
+  </div>
+
+  <div>
+    <p>こども 500円</p>
+    <p>備考:16歳未満</p>
+    <select name="count">
+      <option value="1" selected="selected">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
+  </div>
+</div>
+
+<%= link_to '次へ', buy_ticket_path, class: 'btn btn-primary' %>

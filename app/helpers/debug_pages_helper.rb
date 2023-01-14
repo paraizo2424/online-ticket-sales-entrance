@@ -1,0 +1,2 @@
+module DebugPagesHelper
+end
