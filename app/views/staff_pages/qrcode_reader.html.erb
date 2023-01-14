@@ -2,8 +2,71 @@
 
 <h2>QRコード読み取り</h2>
 
-<div class="">
-  <p>QRコード読み取り部分</p>
+<div id="loading">ブラウザのカメラの使用を許可してください。</div>
+<canvas id="canvas" hidden></canvas>
+
+<div id="output">
+  <div id="outputMessage">No QR code detected.</div>
+  <div hidden=""><b>Data:</b> <span id="outputData"></span></div>
 </div>
 
 <%= link_to 'チケット確認', staff_buy_detail_path, class: 'btn btn-primary' %>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script>
+  const video = document.createElement("video");
+  const canvasElement = document.getElementById("canvas");
+  const canvas = canvasElement.getContext("2d");
+  const loading = document.getElementById("loading");
+  const output = document.getElementById("output");
+  const outputMessage = document.getElementById("outputMessage");
+  const outputData = document.getElementById("outputData");
+
+  navigator.mediaDevices
+    .getUserMedia({ video: { facingMode: "environment" } })
+    .then((stream) => {
+      video.srcObject = stream;
+      video.setAttribute("playsinline", true);
+      video.play();
+      requestAnimationFrame(tick);
+    });
+
+  function tick() {
+    loading.innerText = "ロード中...";
+
+    if (video.readyState === video.HAVE_ENOUGH_DATA) {
+      loading.hidden = true;
+      canvasElement.hidden = false;
+      canvasElement.height = video.videoHeight;
+      canvasElement.width = video.videoWidth;
+      canvas.drawImage(
+        video,
+        0,
+        0,
+        canvasElement.width,
+        canvasElement.height
+      );
+
+      var imageData = canvas.getImageData(
+        0,
+        0,
+        canvasElement.width,
+        canvasElement.height
+      );
+
+      var code = jsQR(imageData.data, imageData.width, imageData.height, {
+        inversionAttempts: "dontInvert",
+      });
+
+      if (code) {
+        outputMessage.hidden = true;
+        outputData.parentElement.hidden = false;
+        outputData.innerText = code.data;
+      } else {
+        outputMessage.hidden = false;
+        outputData.parentElement.hidden = true;
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+</script>

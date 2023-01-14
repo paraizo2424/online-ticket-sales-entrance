@@ -57,6 +57,31 @@ class UsersController < ApplicationController
     end
   end
 
+  def signup
+  end
+
+  def signin
+  end
+
+  def mypage
+  end
+
+  def order_history
+  end
+
+  def order_detail
+    @uuid = SecureRandom.uuid
+
+    qrcode = RQRCode::QRCode.new(@uuid)
+    @svg = qrcode.as_svg(
+      color: "000",
+      shape_rendering: "crispEdges",
+      module_size: 6,
+      standalone: true,
+      use_path: true
+    ).html_safe
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -66,23 +91,5 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:name, :email, :tel, :password)
-    end
-
-    def signup
-    end
-
-    def signin
-    end
-
-    def mypage
-    end
-    
-    def detail
-    end
-
-    def order_history
-    end
-
-    def order_detail
     end
 end
