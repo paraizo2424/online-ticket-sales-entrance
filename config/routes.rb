@@ -26,4 +26,9 @@ Rails.application.routes.draw do
   get '/eventer/ticket_sales_detail', to: 'eventer_pages#ticket_sales_detail'
 
   resources :users
+  get '/signup', to: 'users#signup'
+  get '/signin', to: 'users#signin'
+  get '/mypage', to: 'users#mypage'
+  get '/order_history', to:'users#order_history'
+  get '/order_detail', to:'users#order_detail'
 end

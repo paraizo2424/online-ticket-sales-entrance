@@ -67,4 +67,22 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :tel, :password)
     end
+
+    def signup
+    end
+
+    def signin
+    end
+
+    def mypage
+    end
+    
+    def detail
+    end
+
+    def order_history
+    end
+
+    def order_detail
+    end
 end
