@@ -3,3 +3,75 @@
 <%= link_to 'ユーザ画面', root_path, class: 'btn btn-primary' %>
 <%= link_to '主催者管理画面', eventer_signin_path, class: 'btn btn-primary' %>
 <%= link_to '受付スタッフ画面', staff_signin_path, class: 'btn btn-primary' %>
+
+<details>
+  <summary><%= @users.class %></summary>
+
+  <% @users.reverse.each do |user|%>
+    <p><%= pp user.to_json %></p>
+  <% end %>
+</details>
+
+<details>
+  <summary><%= @staffs.class %></summary>
+
+  <% @staffs.reverse.each do |staff|%>
+    <p><%= pp staff.to_json %></p>
+  <% end %>
+</details>
+
+<details>
+  <summary><%= @sales.class %></summary>
+
+  <% @sales.reverse.each do |sale|%>
+    <p><%= pp sale.to_json %></p>
+  <% end %>
+</details>
+
+<details>
+  <summary><%= @eventers.class %></summary>
+
+  <% @eventers.reverse.each do |eventer|%>
+    <p><%= pp eventer.to_json %></p>
+  <% end %>
+</details>
+
+<details>
+  <summary><%= @event_places.class %></summary>
+
+  <% @event_places.reverse.each do |event_place|%>
+    <p><%= pp event_place.to_json %></p>
+  <% end %>
+</details>
+
+<details>
+  <summary><%= @event_names.class %></summary>
+
+  <% @event_names.reverse.each do |event_name|%>
+    <p><%= pp event_name.to_json %></p>
+  <% end %>
+</details>
+
+<details>
+  <summary><%= @event_times.class %></summary>
+
+  <% @event_times.reverse.each do |event_time|%>
+    <p><%= pp event_time.to_json %></p>
+  <% end %>
+</details>
+
+<details>
+  <summary><%= @tickets.class %></summary>
+
+  <% @tickets.reverse.each do |ticket|%>
+    <p><%= pp ticket.to_json %></p>
+  <% end %>
+</details>
+
+<details>
+  <summary><%= @sale_tickets.class %></summary>
+
+  <% @sale_tickets.reverse.each do |sale_ticket|%>
+    <p><%= pp sale_ticket.to_json %></p>
+  <% end %>
+</details>
