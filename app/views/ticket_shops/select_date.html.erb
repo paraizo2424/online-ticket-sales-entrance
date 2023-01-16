@@ -5,14 +5,7 @@
 
 <h2>日時選択</h2>
 <ul>
-  <li><%= link_to "1月○日", select_time_path %></li>
-  <li><%= link_to "1月○日", select_time_path %></li>
-  <li><%= link_to "1月○日", select_time_path %></li>
-  <li><%= link_to "1月○日", select_time_path %></li>
-  <li><%= link_to "1月○日", select_time_path %></li>
-  <li><%= link_to "1月○日", select_time_path %></li>
-  <li><%= link_to "1月○日", select_time_path %></li>
-  <li><%= link_to "1月○日", select_time_path %></li>
-  <li><%= link_to "1月○日", select_time_path %></li>
-  <li><%= link_to "1月○日", select_time_path %></li>
+  <% @event_dates.each do |event_date| %>
+   <li><%= link_to event_date, select_time_path %></li>
+  <% end %>
 </ul>

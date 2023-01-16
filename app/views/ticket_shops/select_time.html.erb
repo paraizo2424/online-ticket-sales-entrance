@@ -1,41 +1,28 @@
 <h1>チケット販売</h1>
 
 <h2>イベント場所</h2>
-<p>○○シアター</p>
+<p><%= @event_names.first.first.event_place.name %></p>
 
 <h2>日時</h2>
-<p>1月○日</p>
+<p><%= @event_names.first.first.entry_time.to_date %></p>
 
 <h2>イベント選択</h2>
-<div>
-  <h3>〇〇展示会</h3>
 
+<% @event_names.each do |event_name|%>
   <div class="row">
-    <div class="col-4">
-      <img src="https://placehold.jp/150x150.png" class="img-fluid" alt="モックアップ">
-    </div>
+  <h3><%= event_name.first.event_name.name %></h3>
 
-    <div class="col-8">
-      <li><%= link_to "14時00分 〜 15時00分", select_ticket_path %></li>
-      <li><%= link_to "14時00分 〜 15時00分", select_ticket_path %></li>
-      <li><%= link_to "14時00分 〜 15時00分", select_ticket_path %></li>
-      <li><%= link_to "14時00分 〜 15時00分", select_ticket_path %></li>
+  <div class="col-md-4">
+    <img src="https://placehold.jp/150x150.png" class="img-fluid" alt="モックアップ">
+  </div>
+
+  <div class="col-md-8">
+    <% event_name.each do |event| %>
+      <% str_time = [event.entry_time.strftime("%R"),
+                    "~",
+                    event.exit_time.strftime("%R")].join %>
+      <li><%= link_to str_time, select_ticket_path %> </li>
+    <% end %>
     </div>
   </div>
-</div>
-
-<div>
-  <h3>〇〇展示会</h3>
-
-  <div class="row">
-    <div class="col-4">
-      <img src="https://placehold.jp/150x150.png" class="img-fluid" alt="モックアップ">
-    </div>
-
-    <div class="col-8">
-      <li><%= link_to "1月○日", select_ticket_path %></li>
-      <li><%= link_to "1月○日", select_ticket_path %></li>
-      <li><%= link_to "1月○日", select_ticket_path %></li>
-    </div>
-  </div>
-</div>
+<% end %>

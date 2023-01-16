@@ -2,7 +2,9 @@
 
 <h2>イベント会場選択</h2>
 <ul>
-  <li><%= link_to '○○シアター', select_date_path %></li>
-  <li><%= link_to '○○シアター', select_date_path %></li>
-  <li><%= link_to '○○シアター', select_date_path %></li>
+  <% @event_places.each do |event_place| %>
+    <li><%= link_to event_place.name , select_date_path %></li>
+    <p><%= "最大収容人数：#{event_place.max_entry}名" %></p>
+    <p><%= event_place.note %></p>
+  <% end %>
 </ul>

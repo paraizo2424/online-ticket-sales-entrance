@@ -1,40 +1,37 @@
 <h1>チケット販売</h1>
 
 <h2>イベント場所</h2>
-<p>○○シアター</p>
+<p><%= @event.event_place.name %></p>
 
 <h2>日時</h2>
-<p>1月○日</p>
+<p><%= @event.entry_time.to_date %></p>
 
 <h2>イベント</h2>
-<h3>〇〇展示会</h3>
+<p><%= @event.event_name.name %></p>
 
 <h2>時間</h2>
 <img src="https://placehold.jp/150x150.png" class="img-fluid" alt="モックアップ">
-<p>14時00分 〜 15時00分</p>
+<% str_time = [@event.entry_time.strftime("%R"),
+                "~",
+                @event.exit_time.strftime("%R")].join %>
+<p><%= str_time %></p>
 
 <h2>購入枚数</h2>
 
 <div>
+  <% @tickets.each do |ticket| %>
   <div>
-    <p>大人 1,000円</p>
-    <p>備考:</p>
-    <select name="count">
-      <option value="1" selected="selected">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-    </select>
-  </div>
+    <p><%= ticket.name + ticket.price.to_s + '円' %></p>
 
-  <div>
-    <p>こども 500円</p>
-    <p>備考:16歳未満</p>
+    <p><%= '備考:' + ticket.detail %></p>
     <select name="count">
-      <option value="1" selected="selected">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
+      <option value="0" selected="selected">0</option>
+      <% ticket.event_time.max_entry.times do |i| %>
+        <option value="<%= i + 1 %>"><%= i + 1 %></option>
+      <% end %>
     </select>
   </div>
+  <% end %>
 </div>
 
 <%= link_to '次へ', buy_ticket_path, class: 'btn btn-primary' %>
