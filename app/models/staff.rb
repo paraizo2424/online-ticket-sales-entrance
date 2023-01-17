@@ -1,3 +1,3 @@
 class Staff < ApplicationRecord
-  has_many :staff
+  has_many :sales
 end
