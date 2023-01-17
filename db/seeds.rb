@@ -21,19 +21,22 @@ staff_range.each do |char|
 end
 
 # Saleテーブル
+# status:購入済み = 2、仮購入 = 1、キャンセル = 0
+# stuff_idがnilは未入場
 user_count = User.all.count
 staff_count = Staff.all.count
 sale_count = 50
 
 sale_count.times do |i|
-  staff_id = rand(staff_count) if i.odd?
+  uuid = SecureRandom.uuid
+  staff_id = rand(staff_count) + 1 if i.odd?
 
   Sale.create!(
     user_id: rand(user_count) + 1,
     staff_id: staff_id,
     status: 2,
     status_datetime: Time.now + 4.day,
-    url: ('a'..'z').to_a.shuffle.join
+    url: uuid
   )
 end
 
