@@ -9,5 +9,6 @@ class StaffPagesController < ApplicationController
   end
 
   def buy_detail
+    @sale = Sale.find_by(url: params[:url])
   end
 end

@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
   get '/debug/select_actor', to:'debug_pages#select_actor'
-  get 'qrcodes/reader'
-  get 'qrcodes/generate'
 
   root 'ticket_shops#select_place'
   get '/select_date', to: 'ticket_shops#select_date'
@@ -14,7 +12,7 @@ Rails.application.routes.draw do
   get '/staff/signin', to: 'staff_pages#signin'
   get '/staff', to: 'staff_pages#index'
   get '/staff/qrcode_reader', to: 'staff_pages#qrcode_reader'
-  get '/staff/buy_detail', to: 'staff_pages#buy_detail'
+  get '/staff/buy_detail/:url', to: 'staff_pages#buy_detail'
 
   get '/eventer/signin', to: 'eventer_pages#signin'
   get '/eventer', to: 'eventer_pages#index'

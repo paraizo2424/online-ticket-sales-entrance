@@ -8,9 +8,8 @@
 <div id="output">
   <div id="outputMessage">No QR code detected.</div>
   <div hidden=""><b>Data:</b> <span id="outputData"></span></div>
+  <a id="url" href="#" class="btn btn-primary">チケット確認</a>
 </div>
-
-<%= link_to 'チケット確認', staff_buy_detail_path, class: 'btn btn-primary' %>
 
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 <script>
@@ -21,6 +20,7 @@
   const output = document.getElementById("output");
   const outputMessage = document.getElementById("outputMessage");
   const outputData = document.getElementById("outputData");
+  const url = document.getElementById("url")
 
   navigator.mediaDevices
     .getUserMedia({ video: { facingMode: "environment" } })
@@ -62,9 +62,14 @@
         outputMessage.hidden = true;
         outputData.parentElement.hidden = false;
         outputData.innerText = code.data;
+
+        url.parentElement.hidden = false;
+        url.setAttribute('href', 'http://localhost:3000/staff/buy_detail/' + code.data);
+        sleep(5000);
       } else {
         outputMessage.hidden = false;
         outputData.parentElement.hidden = true;
+        url.parentElement.hidden = true;
       }
     }
     requestAnimationFrame(tick);
