@@ -67,13 +67,19 @@ class UsersController < ApplicationController
   end
 
   def order_history
-    
+    user = User.first
+
+    @sales = user.sales
   end
 
   def order_detail
-    @uuid = SecureRandom.uuid
+    user = User.first
 
-    qrcode = RQRCode::QRCode.new(@uuid)
+    @sale = user.sales.first
+
+    @total_price = 0
+
+    qrcode = RQRCode::QRCode.new(@sale.url)
     @svg = qrcode.as_svg(
       color: "000",
       shape_rendering: "crispEdges",

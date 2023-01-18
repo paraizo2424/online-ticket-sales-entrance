@@ -1,18 +1,30 @@
 <h1>購入履歴</h1>
 
-<div>
-  <h2>イベント場所</h2>
-  <p>○○シアター</p>
+<% @sales.each do |sale| %>
+  <div style="border: solid medium">
+    <h2>イベント場所</h2>
+    <% event_time = sale.tickets.first.event_time %>
+    <p><%= event_time.event_place.name %></p>
 
-  <h2>日時</h2>
-  <p>1月○日</p>
+    <h2>日時</h2>
+    <p><%= event_time.entry_time.to_date %></p>
 
-  <h2>イベント</h2>
-  <h3>〇〇展示会</h3>
+    <h2>イベント</h2>
+    <p><%= event_time.event_name.name %></p>
 
-  <h2>時間</h2>
-  <img src="https://placehold.jp/150x150.png" class="img-fluid" alt="モックアップ">
-  <p>14時00分 〜 15時00分</p>
+    <h2>時間</h2>
+    <img src="https://placehold.jp/150x150.png" class="img-fluid" alt="モックアップ">
+    <% str_time = [event_time.entry_time.strftime("%R"),
+                "~",
+                event_time.exit_time.strftime("%R")].join %>
+    <p><%= str_time %></p>
 
-  <%= link_to 'チケット情報', order_detail_path, class: 'btn btn-primary' %>
-</div>
+    <h2>購入枚数</h2>
+    <% sale.tickets.each do |ticket| %>
+      <% sale_ticket = SaleTicket.find_by(sale_id: sale.id, ticket_id: ticket.id) %>
+      <p><%= ticket.name + "#{sale_ticket.count}" + "枚" %></p>
+    <% end %>
+    
+    <%= link_to 'チケット情報', order_detail_path, class: 'btn btn-primary' %>
+  </div>
+<% end %>
