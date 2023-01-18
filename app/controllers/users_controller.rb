@@ -67,6 +67,7 @@ class UsersController < ApplicationController
   end
 
   def order_history
+    
   end
 
   def order_detail

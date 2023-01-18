@@ -16,7 +16,7 @@ class TicketShopsController < ApplicationController
   end
 
   def select_time
-    event_times = EventTime.where("event_place_id = ?", 2)
+    event_times = EventTime.where("event_place_id = ?", 1)
                           .order(event_name_id: :asc)
 
     @event_names = []
@@ -24,16 +24,14 @@ class TicketShopsController < ApplicationController
     temp = nil
 
     event_times.each do |event_time|
-      next if event_time.entry_time.to_date != EventTime.first.entry_time.to_date.yesterday
-
-      if !ary.empty? and temp != event_time.event_name_id
-        @event_names << ary.sort.dup
+      if event_time.event_name.id != temp && !temp.nil?
+        @event_names << ary.dup
         ary.clear
       end
-
+      
       ary << event_time
 
-      temp = event_time.event_name_id
+      temp = event_time.event_name.id
     end
     @event_names << ary.dup
   end

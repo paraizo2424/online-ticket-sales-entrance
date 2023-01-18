@@ -1,5 +1,5 @@
 # Userテーブル挿入
-user_range = ('a'..'z')
+user_range = ('a'..'g')
 user_count = user_range.count
 user_range.each do |char|
   User.create!(
@@ -17,26 +17,6 @@ staff_range.each do |char|
   Staff.create!(
     name: char * 3,
     password: "password"
-  )
-end
-
-# Saleテーブル
-# status:購入済み = 2、仮購入 = 1、キャンセル = 0
-# stuff_idがnilは未入場
-user_count = User.all.count
-staff_count = Staff.all.count
-sale_count = 50
-
-sale_count.times do |i|
-  uuid = SecureRandom.uuid
-  staff_id = rand(staff_count) + 1 if i.odd?
-
-  Sale.create!(
-    user_id: rand(user_count) + 1,
-    staff_id: staff_id,
-    status: 2,
-    status_datetime: Time.now + 4.day,
-    url: uuid
   )
 end
 
@@ -63,7 +43,6 @@ end
 # EventNameテーブル
 events = ['展示会', 'ショー', '上映', 'オンラインミーティング', 'フリーマーケット']
 event_range = ('A'..'I')
-event_count = event_range.count
 event_range.each do |char|
   EventName.create!(
     name: (char * 3) + names.sample + events.sample,
@@ -73,21 +52,28 @@ end
 
 # EventTimeテーブル挿入
 # 今日の日付から±3日分のイベントを入力
-event_time_count = 100
-event_time_count.times do
-  entry_time = Time.now + rand(-3..3).day
+event_name_count = EventName.count
+event_place_count = EventPlace.count
+time_current = Time.current
+
+(-3..3).each do |i|
+  entry_time = time_current + i.day
   entry_time = entry_time.change(
     hour: rand(24),
-    min: [0, 30].sample
+    min: [0, 15, 30, 45].sample
   )
 
-  EventTime.create!(
-    event_place_id: rand(places.count) + 1,
-    event_name_id: rand(event_count) + 1,
-    entry_time: entry_time,
-    exit_time: entry_time + rand(1..3).hour,
-    max_entry: rand(10..100)
-  )
+  1.upto event_name_count do |j|
+    1.upto event_place_count do |k|
+      EventTime.create!(
+        event_name_id: j,
+        event_place_id: k,
+        entry_time: entry_time,
+        exit_time: entry_time + rand(1..3).hour,
+        max_entry: rand(10..100)
+      )
+    end
+  end
 end
 
 # Ticketテーブル挿入
@@ -96,11 +82,11 @@ tickets = [
   {name: "こども", detail: "15歳未満対象", price: 500},
   {name: "シニア", detail: "60歳以上対象", price:1000}
 ]
-event_time_count = EventTime.all.count
-event_time_count.times do |i|
+event_time_count = EventTime.count
+1.upto event_time_count do |i|
   tickets.each do |ticket|
     Ticket.create!(
-      event_time_id: i + 1,
+      event_time_id: i,
       name: ticket[:name],
       detail: ticket[:detail],
       price: ticket[:price]
@@ -108,14 +94,42 @@ event_time_count.times do |i|
   end
 end
 
-# SaleTicketテーブル
-sale_ticket_count = 20
-sale_count = Sale.all.count
+# Saleテーブル
+# status:購入済み = 2、仮購入 = 1、キャンセル = 0
+# stuff_idがnilは未入場
+user_count = User.count
+staff_count = Staff.count
 
-sale_ticket_count.times do |i|
-  SaleTicket.create!(
-    sale_id: rand(sale_count) + 1,
-    ticket_id: i + 1,
-    count: rand(1..3)
-  )
+sale_count = 10
+
+1.upto user_count do |j|
+  sale_count.times do |i|
+    uuid = SecureRandom.uuid
+    staff_id = rand(staff_count) + 1 if i.odd?
+
+    Sale.create!(
+      user_id: j,
+      staff_id: staff_id,
+      status: 2,
+      status_datetime: Time.now + rand(5).day,
+      url: uuid
+    )
+  end
+end
+
+# SaleTicketテーブル
+users = User.limit 3
+i = 1
+users.each do |user|
+  user.sales.each do |sale|
+    i.upto (i + 2) do |j|
+      SaleTicket.create!(
+        sale_id: sale.id,
+        ticket_id: j,
+        count: rand(1..3)
+      )
+    end
+
+    i += 3
+  end
 end
